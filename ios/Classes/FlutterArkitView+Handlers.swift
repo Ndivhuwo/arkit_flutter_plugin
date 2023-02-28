@@ -253,4 +253,58 @@ extension FlutterArkitView {
             result(nil)
         }
     }
+
+   func onGetSnapshotRGB(_ result:FlutterResult) {
+        if let snapshotImage = sceneView.session.currentFrame?.capturedImage {
+            let data = snapshotImage
+            result(data)
+        } else {
+            result(nil)
+        }
+   }
+
+   func onGetCameraPosition(_ result: FlutterResult) {
+        if let frame: ARFrame = sceneView.session.currentFrame {
+            let cameraPosition = frame.camera.transform.columns.3
+            let res = serializeArray(cameraPosition)
+            result(res)
+        } else {
+            result(nil)
+        }
+   }
+
+   func onGetFocalLength1(_ result: FlutterResult) {
+        if let focalLength = sceneView.pointOfView?.camera?.focalLength {
+            result(focalLength)
+        } else {
+            result(nil)
+        }
+   }
+
+   func onGetFocalLength2(_ result: FlutterResult) {
+       if #available(iOS 16, *) {
+            if let exifData = sceneView.session.currentFrame?.exifData {
+               let focalLengthKey = kCGImagePropertyExifFocalLength as String
+               let focalLength = exifData[focalLengthKey] as! NSNumber
+               result(focalLength)
+           } else {
+               result(nil)
+           }
+       } else {
+            result(nil)
+       }
+
+  }
+
+  /* func onGetFocalLength2(_ result: FlutterResult) {
+        if let exifData = sceneView.session?.currentFrame?.rawFeaturePoints?.points {
+           let focalLengthKey = kCGImagePropertyExifFocalLength as String
+           let focalLength = exifData[focalLengthKey] as! NSNumber
+           result(focalLength)
+       } else {
+           result(nil)
+       }
+
+  } */
+
 }

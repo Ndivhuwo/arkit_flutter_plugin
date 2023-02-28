@@ -119,6 +119,19 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
         case "snapshot":
             onGetSnapshot(result)
             break
+        case "snapshotRGB":
+            onGetSnapshotRGB(result)
+            break
+        case "cameraPosition":
+            onGetCameraPosition(result)
+            break
+        case "focalLength":
+            onGetFocalLength1(result)
+            break
+        case "focalLengthExifData":
+            onGetFocalLength2(result)
+            break
+
         default:
             result(FlutterMethodNotImplemented)
             break

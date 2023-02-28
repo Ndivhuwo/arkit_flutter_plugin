@@ -7,13 +7,13 @@ func getARHitResultsArray(_ sceneView: ARSCNView, atLocation location: CGPoint) 
 }
 
 fileprivate func getARHitResults(_ sceneView: ARSCNView, atLocation location: CGPoint) -> Array<ARHitTestResult> {
-    var types = ARHitTestResult.ResultType(
-        [.featurePoint, .estimatedHorizontalPlane, .existingPlane, .existingPlaneUsingExtent])
+    /* var types = ARHitTestResult.ResultType([.featurePoint, .estimatedHorizontalPlane, .existingPlane, .existingPlaneUsingExtent])
     
     if #available(iOS 11.3, *) {
         types.insert(.estimatedVerticalPlane)
         types.insert(.existingPlaneUsingGeometry)
-    }
+    } */
+    var types = ARHitTestResult.ResultType([.featurePoint])
     let results = sceneView.hitTest(location, types: types)
     return results
 }

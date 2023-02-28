@@ -740,4 +740,38 @@ class ARKitController {
     final result = await _channel.invokeMethod<Uint8List>('snapshot');
     return MemoryImage(result!);
   }
+
+  Future<ImageProvider> snapshotRGB() async {
+    final result = await _channel.invokeMethod('snapshotRGB');
+    print(result);
+    return MemoryImage(result!);
+  }
+
+  Future<Vector3?> cameraPosition() async {
+    final result = await _channel.invokeListMethod('cameraPosition');
+    if(result != null) {
+      return _vector3Converter.fromJson(result);
+    } else {
+      return null;
+    }
+  }
+
+  Future<double?> getFocalLength() async {
+    final result = await _channel.invokeMethod('focalLength');
+    if(result != null) {
+      return result;
+    } else {
+      return null;
+    }
+  }
+
+  Future<double?> focalLengthExifData() async {
+    final result = await _channel.invokeMethod('focalLengthExifData');
+    if(result != null) {
+      return result;
+    } else {
+      return null;
+    }
+  }
+
 }
