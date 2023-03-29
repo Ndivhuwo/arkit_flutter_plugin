@@ -281,6 +281,14 @@ extension FlutterArkitView {
         }
    }
 
+   func onGetSensorHeight(_ result: FlutterResult) {
+           if let sensorHeight = sceneView.pointOfView?.camera?.sensorHeight {
+               result(sensorHeight)
+           } else {
+               result(nil)
+           }
+      }
+
    func onGetFocalLength2(_ result: FlutterResult) {
        if #available(iOS 16, *) {
             if let exifData = sceneView.session.currentFrame?.exifData {

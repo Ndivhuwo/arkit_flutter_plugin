@@ -8,7 +8,7 @@ class CheckSupportPage extends StatelessWidget {
           title: const Text('Check ARKit Support Sample'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children:
               ARKitConfiguration.values.map((e) => showSupport(e)).toList(),
         ),

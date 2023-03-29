@@ -52,11 +52,12 @@ class _SnapshotScenePageState extends State<SnapshotScenePage> {
 class SnapshotPreview extends StatelessWidget {
   const SnapshotPreview({
     Key? key,
-    required this.imageProvider,
+    required this.imageProvider, this.meanDistance, this.averageDistance
   }) : super(key: key);
 
   final ImageProvider imageProvider;
-
+  final String? meanDistance;
+  final String? averageDistance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +68,48 @@ class SnapshotPreview extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Image(image: imageProvider),
+          meanDistance != null && averageDistance != null ? Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Median: $meanDistance',
+                  style: TextStyle(
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(125, 0, 0, 255),
+                        ),
+                      ],
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500)),
+              SizedBox(height: 25,),
+              Text('Average: $averageDistance',
+                  style: TextStyle(
+                      color: Colors.white,
+                      shadows: <Shadow>[
+                        Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 3.0,
+                          color: Color.fromARGB(255, 0, 0, 0),
+                        ),
+                        Shadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 8.0,
+                          color: Color.fromARGB(125, 0, 0, 255),
+                        ),
+                      ],
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500)),
+            ],
+          ):
+              Container()
         ],
       ),
     );

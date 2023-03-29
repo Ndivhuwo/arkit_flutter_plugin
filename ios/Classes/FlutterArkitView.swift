@@ -128,6 +128,9 @@ class FlutterArkitView: NSObject, FlutterPlatformView {
         case "focalLength":
             onGetFocalLength1(result)
             break
+        case "sensorHeight":
+            onGetSensorHeight(result)
+            break
         case "focalLengthExifData":
             onGetFocalLength2(result)
             break

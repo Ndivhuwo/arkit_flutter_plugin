@@ -765,6 +765,15 @@ class ARKitController {
     }
   }
 
+  Future<double?> getSensorHeight() async {
+    final result = await _channel.invokeMethod('sensorHeight');
+    if(result != null) {
+      return result;
+    } else {
+      return null;
+    }
+  }
+
   Future<double?> focalLengthExifData() async {
     final result = await _channel.invokeMethod('focalLengthExifData');
     if(result != null) {
