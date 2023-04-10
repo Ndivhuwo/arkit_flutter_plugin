@@ -203,7 +203,7 @@ extension FlutterArkitView {
         // Perform hit tests at each point in the grid
         var hitTestResults = [ARHitTestResult]()
         for point in points {
-            let hitTestResultsAtPoint = sceneView.hitTest(point, types: [.featurePoint, .estimatedHorizontalPlane])
+            let hitTestResultsAtPoint = sceneView.hitTest(point, types: [.featurePoint])
             hitTestResults.append(contentsOf: hitTestResultsAtPoint)
         }
 
