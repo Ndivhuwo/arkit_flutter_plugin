@@ -366,6 +366,24 @@ class ARKitController {
     }
   }
 
+  /// Get Sorted HitTest Results
+  /// Perform hit tests at each point in the grid
+  /// Sort the hit test results based on their distance from the camera
+  /// numPoints value Define the number of points in the grid
+  Future<List<ARKitTestResult>> getSortedHitTestResults(
+      {required int numPoints}) async {
+    assert(numPoints > 0);
+    final results =
+        await _channel.invokeListMethod('getSortedHitTestResults', {'numPoints': numPoints});
+    if (results == null) {
+      return [];
+    } else {
+      final map = results.map((e) => Map<String, dynamic>.from(e));
+      final objects = map.map((e) => ARKitTestResult.fromJson(e)).toList();
+      return objects;
+    }
+  }
+
   /// Return list of 2 Vector3 elements, where first element - min value, last element - max value.
   Future<List<Vector3>> getNodeBoundingBox(ARKitNode node) async {
     final params = _addParentNodeNameToParams(node.toMap(), null);

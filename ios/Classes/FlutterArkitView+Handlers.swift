@@ -166,6 +166,50 @@ extension FlutterArkitView {
         let arHitResults = getARHitResultsArray(sceneView, atLocation: location)
         result(arHitResults)
     }
+
+    func onGetSortedHitTestResults(_ arguments: Dictionary<String, Any>, _ result:FlutterResult) {
+
+        guard let numPoints = arguments["numPoints"] as? Int else {
+            logPluginError("deserialization failed", toChannel: channel)
+            result(nil)
+            return
+        }
+        guard let frame = sceneView.session.currentFrame else { return [] }
+
+
+        // Calculate the size of each cell in the grid
+        let cellSize = CGPoint(x: sceneView.bounds.width / CGFloat(numPoints - 1),
+                                y: sceneView.bounds.height / CGFloat(numPoints - 1))
+
+        // Calculate the center point of the screen
+        let centerPoint = CGPoint(x: sceneView.bounds.midX, y: sceneView.bounds.midY)
+
+        // Create an array of points in the grid
+        var points = [centerPoint]
+        for i in 0..<numPoints {
+            for j in 0..<numPoints {
+                let x = CGFloat(i) * cellSize.x
+                let y = CGFloat(j) * cellSize.y
+                let point = CGPoint(x: x, y: y)
+                if point != centerPoint {
+                    points.append(point)
+                }
+            }
+        }
+
+        // Perform hit tests at each point in the grid
+        var hitTestResults = [ARHitTestResult]()
+        for point in points {
+            let hitTestResultsAtPoint = sceneView.hitTest(point, types: [.featurePoint, .estimatedHorizontalPlane])
+            hitTestResults.append(contentsOf: hitTestResultsAtPoint)
+        }
+
+        // Sort the hit test results based on their distance from the camera
+        hitTestResults.sort { (result1, result2) -> Bool in
+            return result1.distance < result2.distance
+        }
+        result(hitTestResults)
+    }
     
     func onGetLightEstimate(_ result:FlutterResult) {
         let frame = sceneView.session.currentFrame
