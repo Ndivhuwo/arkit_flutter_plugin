@@ -18,7 +18,7 @@ fileprivate func getARHitResults(_ sceneView: ARSCNView, atLocation location: CG
     return results
 }
 
-fileprivate func convertHitResultsToArray(_ array : Array<ARHitTestResult>)  -> Array<Dictionary<String, Any>> {
+func convertHitResultsToArray(_ array : Array<ARHitTestResult>)  -> Array<Dictionary<String, Any>> {
     return array.map {getDictFromHitResult($0) }
 }
 

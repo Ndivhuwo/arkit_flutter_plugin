@@ -211,7 +211,8 @@ extension FlutterArkitView {
         hitTestResults.sort { (result1, result2) -> Bool in
             return result1.distance < result2.distance
         }
-        result(hitTestResults)
+        let results = convertHitResultsToArray(hitTestResults)
+        result(results)
     }
     
     func onGetLightEstimate(_ result:FlutterResult) {
