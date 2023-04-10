@@ -174,8 +174,11 @@ extension FlutterArkitView {
             result(nil)
             return
         }
-        guard let frame = sceneView.session.currentFrame else { return [] }
-
+        guard let frame = sceneView.session.currentFrame else {
+            logPluginError("Frame not found", toChannel: channel)
+            result(nil)
+            return
+        }
 
         // Calculate the size of each cell in the grid
         let cellSize = CGPoint(x: sceneView.bounds.width / CGFloat(numPoints - 1),
